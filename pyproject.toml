@@ -1,0 +1,35 @@
+[project]
+name = "torchac"
+version = "0.0.1"
+description = "Fast arithmetic coding for PyTorch (C++ extension)"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "torch>=2.15",
+]
+
+[build-system]
+requires = ["setuptools>=77", "wheel", "ninja"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["torchac"]
+
+[tool.uv]
+# Build the extension against the same torch that is installed at runtime.
+extra-build-dependencies = { torchac = [{ requirement = "torch", match-runtime = true }] }
+# VSLANG=1033: English MSVC output (torch fails to parse localized cl.exe output).
+extra-build-variables = { torchac = { VSLANG = "1033", DISTUTILS_USE_SDK = "1" } }
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[dependency-groups]
+dev = ["pytest"]
