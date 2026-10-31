@@ -1,4 +1,4 @@
-# torchac
+# Torchac
 
 This library implements fast [arithmetic coding](https://marknelson.us/posts/2014/10/19/data-compression-with-arithmetic-coding.html) for PyTorch,
 encoding tensors of symbols into a byte stream given a per-symbol cumulative distribution function (CDF).
@@ -28,19 +28,10 @@ pip install torch
 pip install --no-build-isolation git+https://github.com/akanelite/torchac.git
 ```
 
-For local development:
-
-```bash
-git clone https://github.com/akanelite/torchac.git
-cd torchac
-uv sync          # builds the extension and installs pytest
-uv run pytest
-```
-
 On Windows, build from PowerShell or a Developer Command Prompt.
 In Git Bash, `link.exe` resolves to Git's own coreutils binary instead of the MSVC linker, so the build fails.
 
-## Quick start
+## Quick Start
 
 ```python
 import torch
@@ -58,17 +49,6 @@ assert decoded.equal(sym)
 The CDF has one more dimension than the symbols, and its leading dimensions must match the symbol shape.
 Each row starts at 0, ends at 1, and is non-decreasing.
 Both tensors must be on CPU.
-
-## API
-
-- `encode(sym, cdf, needs_normalization=False, check_input_bounds=False) -> bytes`
-  encodes `int16` symbols with a float CDF.
-  Set `needs_normalization=True` when the CDF may contain flat steps, so that every symbol keeps a non-zero probability after quantization.
-  `check_input_bounds=True` validates the CDF range and the symbol values first.
-- `decode(byte_stream, cdf, needs_normalization=False) -> Tensor`
-  decodes a byte stream with the same CDF and `needs_normalization` that were used to encode it.
-- `encode_int16_normalized_cdf(sym, cdf)` and `decode_int16_normalized_cdf(byte_stream, cdf)`
-  skip the float-to-integer conversion and take a CDF that is already quantized to 16 bits.
 
 ## License
 
