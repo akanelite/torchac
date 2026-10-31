@@ -2,6 +2,7 @@
 name = "torchac"
 version = "0.0.1"
 description = "Fast arithmetic coding for PyTorch (C++ extension)"
+readme = "README.md"
 license = "GPL-3.0-only"
 license-files = ["LICENSE"]
 requires-python = ">=3.11"
