@@ -10,10 +10,13 @@ It is derived from [fab-jul/torchac](https://github.com/fab-jul/torchac), repack
 
 ## Installation
 
-Requirements
+### Prerequisites
+
 - Python 3.11+
 - PyTorch 2.15+
 - A C++20 compiler (MSVC on Windows, GCC or Clang elsewhere), since the extension is built at install time
+
+### Install
 
 Using [uv](https://github.com/astral-sh/uv), which builds the extension against the installed PyTorch:
 
@@ -27,9 +30,6 @@ With pip, install PyTorch first and disable build isolation so the build can see
 pip install torch
 pip install --no-build-isolation git+https://github.com/akanelite/torchac.git
 ```
-
-On Windows, build from PowerShell or a Developer Command Prompt.
-In Git Bash, `link.exe` resolves to Git's own coreutils binary instead of the MSVC linker, so the build fails.
 
 ## Quick Start
 
